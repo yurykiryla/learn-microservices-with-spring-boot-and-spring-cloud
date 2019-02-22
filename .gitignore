@@ -1,8 +1,10 @@
 .metadata/
 */target/*
+*/*/target/*
 **/.classpath
 */.mvn/*
 */.settings/*
 */.project
 */mvnw
 */mvnw.cmd
+**/.gitignore
