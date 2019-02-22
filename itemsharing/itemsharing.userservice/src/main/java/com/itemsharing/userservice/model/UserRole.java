@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "user_role")
 public class UserRole {
@@ -25,9 +27,11 @@ public class UserRole {
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id")
+	@JsonIgnore
 	private User user;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
+	@JsonIgnore
 	private Role role;
 
 	public long getUserRoleId() {
