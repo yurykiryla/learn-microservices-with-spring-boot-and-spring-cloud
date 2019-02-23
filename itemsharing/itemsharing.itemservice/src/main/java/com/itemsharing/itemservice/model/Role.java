@@ -1,4 +1,4 @@
-package com.itemsharing.userservice.model;
+package com.itemsharing.itemservice.model;
 
 import java.util.HashSet;
 import java.util.Set;
