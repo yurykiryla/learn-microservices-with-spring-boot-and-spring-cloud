@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.itemsharing.itemservice.client.UserFeignClient;
 import com.itemsharing.itemservice.model.Item;
 import com.itemsharing.itemservice.model.User;
 import com.itemsharing.itemservice.repository.ItemRepository;
@@ -25,6 +26,9 @@ public class ItemServiceImpl implements ItemService {
 
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	UserFeignClient userFeignClient;
 
 	@Override
 	public Item addItemByUser(Item item, String username) {
@@ -85,7 +89,8 @@ public class ItemServiceImpl implements ItemService {
 
 	@Override
 	public User getUserByUsername(String username) {
-		return userService.getUserByUsername(username);
+//		return userService.getUserByUsername(username);
+		return userFeignClient.getUserByUsername(username);
 	}
 
 }
