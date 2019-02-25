@@ -16,6 +16,7 @@ import com.itemsharing.itemservice.model.User;
 import com.itemsharing.itemservice.repository.ItemRepository;
 import com.itemsharing.itemservice.service.ItemService;
 import com.itemsharing.itemservice.service.UserService;
+import com.itemsharing.itemservice.util.UserContextHolder;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 
@@ -105,6 +106,8 @@ public class ItemServiceImpl implements ItemService {
 //		return userService.getUserByUsername(username);
 
 		randomlyRunLong();
+		
+		LOG.debug("ItemService.getUserByUsername Correlation id: {}", UserContextHolder.getContext().getCorrelationId());
 
 		return userFeignClient.getUserByUsername(username);
 	}

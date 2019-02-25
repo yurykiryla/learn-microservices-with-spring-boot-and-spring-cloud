@@ -3,6 +3,8 @@ package com.itemsharing.itemservice.controller;
 import java.io.IOException;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +16,7 @@ import com.itemsharing.itemservice.model.Item;
 import com.itemsharing.itemservice.model.User;
 import com.itemsharing.itemservice.service.ItemService;
 import com.itemsharing.itemservice.service.UserService;
+import com.itemsharing.itemservice.util.UserContextHolder;
 
 @RestController
 @RequestMapping("/v1/item")
@@ -23,6 +26,8 @@ public class ItemController {
 
 	@Autowired
 	private UserService userService;
+	
+	private static final Logger LOG = LoggerFactory.getLogger(ItemController.class);
 
 	@RequestMapping(method = RequestMethod.POST)
 	public Item addItem(@RequestBody Item item) {
@@ -61,6 +66,8 @@ public class ItemController {
 	
 	@RequestMapping("/user/{username}")
 	public User getUserByUsername(@PathVariable String username) {
+		LOG.debug("ItemServiceController Correlation Id: {}", UserContextHolder.getContext().getCorrelationId());
+		
 		return itemService.getUserByUsername(username);
 	}
 }
