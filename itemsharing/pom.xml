@@ -26,6 +26,7 @@
 		<module>itemsharing.itemservice</module>
 		<module>itemsharing.configserver</module>
 		<module>itemsharing.eurekaserver</module>
+		<module>itemsharing.zuulserver</module>
 	</modules>
 
 	<dependencies>
