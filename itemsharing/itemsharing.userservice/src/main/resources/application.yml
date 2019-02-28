@@ -15,3 +15,8 @@
 #    
 #server:
 #  port: 8081
+
+security:  oauth2:    resource:      user-info-uri: http://localhost:8901/user
+      
+signing:
+  key: 345345fsdgsf5345 
