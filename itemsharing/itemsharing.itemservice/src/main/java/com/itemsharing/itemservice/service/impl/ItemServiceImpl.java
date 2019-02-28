@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.itemsharing.itemservice.client.UserFeignClient;
+import com.itemsharing.itemservice.client.UserRestTemplateClient;
 import com.itemsharing.itemservice.model.Item;
 import com.itemsharing.itemservice.model.User;
 import com.itemsharing.itemservice.repository.ItemRepository;
@@ -33,6 +34,9 @@ public class ItemServiceImpl implements ItemService {
 
 	@Autowired
 	UserFeignClient userFeignClient;
+	
+	@Autowired
+	private UserRestTemplateClient userRestTemplateClient;
 
 	@Override
 	public Item addItemByUser(Item item, String username) {
@@ -93,15 +97,15 @@ public class ItemServiceImpl implements ItemService {
 
 	@Override
 //	@HystrixCommand(commandProperties = {@HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "12000") })
-	@HystrixCommand(
-			commandProperties = {@HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "3000")},
-			fallbackMethod = "buildFallbackUser", 
-			threadPoolKey = "itemByUserThreadPool",
-			threadPoolProperties = {
-					@HystrixProperty(name = "coreSize", value = "30"),
-					@HystrixProperty(name = "maxQueueSize", value = "10")
-					}
-			)
+//	@HystrixCommand(
+//			commandProperties = {@HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "3000")},
+//			fallbackMethod = "buildFallbackUser", 
+//			threadPoolKey = "itemByUserThreadPool",
+//			threadPoolProperties = {
+//					@HystrixProperty(name = "coreSize", value = "30"),
+//					@HystrixProperty(name = "maxQueueSize", value = "10")
+//					}
+//			)
 	public User getUserByUsername(String username) {
 //		return userService.getUserByUsername(username);
 
@@ -109,7 +113,9 @@ public class ItemServiceImpl implements ItemService {
 		
 		LOG.debug("ItemService.getUserByUsername Correlation id: {}", UserContextHolder.getContext().getCorrelationId());
 
-		return userFeignClient.getUserByUsername(username);
+//		return userFeignClient.getUserByUsername(username);
+		
+		return userRestTemplateClient.getUser(username);
 	}
 
 	private void randomlyRunLong() {
