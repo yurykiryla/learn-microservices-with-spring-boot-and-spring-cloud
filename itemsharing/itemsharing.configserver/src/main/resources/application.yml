@@ -2,5 +2,5 @@ server:
   port: 8888
 
 spring:  cloud:    config:      server:        git:          uri: https://github.com/yurykiryla/learn-microservices-with-spring-boot-and-spring-cloud_config
-          search-paths: userservice, itemservice
+          search-paths: userservice, itemservice,authorizationservice,eurekaservice,zipkinservice,zuulservice
         encrypt:          enabled: false
