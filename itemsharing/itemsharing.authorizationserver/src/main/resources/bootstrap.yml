@@ -2,4 +2,4 @@ spring:
   application:
     name: authorizationservice
   profiles:    active:      default
-  cloud:    config:      uri: http://localhost:8888
+  cloud:    config:      uri: http://18.220.211.153:8888
